@@ -1,9 +1,10 @@
-# enviroments
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+ENV/
 
 
-# __py
-
-
-# files
-
-# 
+# Byte-compiled 
+__pycache__/
