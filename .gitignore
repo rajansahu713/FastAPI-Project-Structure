@@ -8,3 +8,7 @@ ENV/
 
 # Byte-compiled 
 __pycache__/
+
+
+# enviroment file
+.env    
