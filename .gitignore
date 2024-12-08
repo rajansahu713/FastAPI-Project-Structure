@@ -11,4 +11,7 @@ __pycache__/
 
 
 # enviroment file
-.env    
+.env   
+
+# database
+sql_app.db

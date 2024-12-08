@@ -2,7 +2,8 @@ from pydantic import BaseModel, EmailStr
 
 class UserCreate(BaseModel):
     username: str
-    email: EmailStr
+    mobile_no: str
+    email_id: EmailStr
     password: str
 
 class UserResponse(BaseModel):

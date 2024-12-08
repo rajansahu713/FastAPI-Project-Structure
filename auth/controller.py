@@ -4,30 +4,39 @@ from auth.auth import AuthHandler
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from datetime import timedelta
-from auth.models import User, fake_users_db
 from auth.constants import ACCESS_TOKEN_EXPIRE_MINUTES
 from fastapi.security import HTTPAuthorizationCredentials
 from fastapi import Security
+from auth.data import create_user
+from database.db import get_db
+from sqlalchemy.orm import Session
 
 
 auth_router = APIRouter()
 auth_handle = AuthHandler()
 
-@auth_router.post("/register", response_model=UserResponse)
-async def register_user(user: UserCreate):
-    if await auth_handle.get_user(user.username):
+# @auth_router.post("/register", response_model=UserResponse)
+@auth_router.post("/register")
+async def register_user(user: UserCreate, db: Session = Depends(get_db)):
+    try:
+        if await auth_handle.get_user(user.username):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Username already registered",
+            )
+        hashed_password = await auth_handle.get_password_hash(user.password)
+        user.password = hashed_password
+        new_user= await create_user(db, user)
+        return new_user
+    except Exception as err:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Username already registered",
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="SOmething Went wrong"
         )
-    hashed_password = await auth_handle.get_password_hash(user.password)
-    new_user = User(username=user.username, email=user.email, hashed_password=hashed_password)
-    fake_users_db.append(new_user)
-    return new_user
 
 @auth_router.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = await auth_handle.authenticate_user(form_data.username, form_data.password)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = await auth_handle.authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -41,6 +50,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @auth_router.post("/logout")
-async def logout_access_token(auth: HTTPAuthorizationCredentials = Security(auth_handle.security)):
-    await auth_handle.blocklist_token(auth.credentials)
+async def logout_access_token(auth: HTTPAuthorizationCredentials = Security(auth_handle.security), db: Session = Depends(get_db)):
+    await auth_handle.blocklist_token(auth.credentials, db)
     return {"message": "Logged out"}

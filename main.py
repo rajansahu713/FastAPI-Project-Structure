@@ -3,7 +3,9 @@ from common import constants as global_constant
 from common import helper_function as global_helper
 from routers import main_router
 from fastapi.middleware.cors import CORSMiddleware
-from database.databases import SessionLocal
+from database.db import engine, Base
+from auth import models
+from contextlib import asynccontextmanager
 
 
 app = FastAPI(
@@ -24,16 +26,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
 
 
 app.include_router(main_router)
 
 
-def get_db():
-    database = SessionLocal()
-    try:
-        yield database
-    finally:
-        database.close()
+
+models.Base.metadata.create_all(bind=engine)
 
     
