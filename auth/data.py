@@ -13,11 +13,9 @@ async def create_user(db: Session, user: UserCreate):
 
 async def get_user_details(db: Session, username):
     user =db.query(User).filter(User.username == username)
-
     if user:
-        print("user  ",user.first())
         return user.first()
-    return user
+    return None
 
 
 async def block_token(token, db: Session):
@@ -30,9 +28,7 @@ async def block_token(token, db: Session):
 
 
 async def is_token_blocked(db:Session, token):
-    print("token", token)
     token = db.query(BlockToken).filter(BlockToken.token == token).first()
-    print("tokeb",token)
     if token:
         return True
     return False

@@ -3,7 +3,7 @@ from jose import jwt, JWTError
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from typing import Optional
-from auth.models import  blocklist_token
+# from auth.models import  blocklist_token
 from auth.constants import SECRET_KEY, ALGORITHM
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi import Security
@@ -48,8 +48,6 @@ class AuthHandler:
     async def blocklist_token(self, db, token):
         await block_token(db, token)
 
-    async def istokenblock(self, token):
-        return token in blocklist_token
 
     
     async def auth_wrapper(self, auth: HTTPAuthorizationCredentials = Security(security), db : Session = Depends(get_db)):
@@ -76,7 +74,7 @@ class AuthHandler:
                 detail="Not authenticated",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        user = await is_token_blocked(db,username)
+        user = await get_user_details(db,username)
         if user is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,

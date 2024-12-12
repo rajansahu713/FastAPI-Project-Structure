@@ -4,7 +4,8 @@ from common import helper_function as global_helper
 from routers import main_router
 from fastapi.middleware.cors import CORSMiddleware
 from database.db import engine, Base
-from auth import models
+from auth import models as auth_model
+from apps.blogs import models as blog_model
 from contextlib import asynccontextmanager
 
 
@@ -35,6 +36,8 @@ app.include_router(main_router)
 
 
 
-models.Base.metadata.create_all(bind=engine)
+auth_model.Base.metadata.create_all(bind=engine)
+blog_model.Base.metadata.create_all(bind=engine)
+
 
     

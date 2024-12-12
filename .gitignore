@@ -15,3 +15,6 @@ __pycache__/
 
 # database
 sql_app.db
+
+# .vscode
+.vscode/

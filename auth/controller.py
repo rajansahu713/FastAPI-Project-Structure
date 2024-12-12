@@ -15,11 +15,10 @@ from sqlalchemy.orm import Session
 auth_router = APIRouter()
 auth_handle = AuthHandler()
 
-# @auth_router.post("/register", response_model=UserResponse)
 @auth_router.post("/register")
 async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     try:
-        if await auth_handle.get_user(user.username):
+        if await auth_handle.get_user(db, user.username):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Username already registered",
@@ -31,7 +30,7 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     except Exception as err:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="SOmething Went wrong"
+            detail="Due to this error {}".format(err)
         )
 
 @auth_router.post("/token", response_model=Token)
