@@ -1,4 +1,4 @@
-# Project Meta Data 
+# Project Meta Data
 TITLE_TAGS = "Project-Setup"
 VERSION = "0.0.1"
 PREFIX = "api"
@@ -9,4 +9,4 @@ BLOGS = "Blogs"
 AUTH = "Auth"
 
 # Allowed Orgin
-ALLOW_ORIGINS = ['localhost']
+ALLOW_ORIGINS = ["localhost"]

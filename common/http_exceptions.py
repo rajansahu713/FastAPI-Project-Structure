@@ -1,4 +1,5 @@
-from fastapi import  HTTPException
+from fastapi import HTTPException
+
 
 class UnderMaintenanceException(HTTPException):
     def __init__(self, detail="Service is under maintenance"):

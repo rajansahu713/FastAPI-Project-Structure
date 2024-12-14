@@ -1,13 +1,14 @@
-from fastapi import FastAPI, Depends
-from common import constants as global_constant
-from common import helper_function as global_helper
-from routers import main_router
-from fastapi.middleware.cors import CORSMiddleware
-from database.db import engine, Base
-from auth import models as auth_model
-from apps.blogs import models as blog_model
 from contextlib import asynccontextmanager
 
+from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from apps.blogs import models as blog_model
+from auth import models as auth_model
+from common import constants as global_constant
+from common import helper_function as global_helper
+from database.db import engine
+from routers import main_router
 
 app = FastAPI(
     title=global_constant.TITLE_TAGS,
@@ -21,11 +22,12 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins= global_constant.ALLOW_ORIGINS,
+    allow_origins=global_constant.ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,9 +37,5 @@ async def lifespan(app: FastAPI):
 app.include_router(main_router)
 
 
-
 auth_model.Base.metadata.create_all(bind=engine)
 blog_model.Base.metadata.create_all(bind=engine)
-
-
-    

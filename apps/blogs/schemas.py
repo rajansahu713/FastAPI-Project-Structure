@@ -1,6 +1,6 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
+
 
 class BlogCreate(BaseModel):
-    title : str
-    description : str
-    
+    title: str
+    description: str

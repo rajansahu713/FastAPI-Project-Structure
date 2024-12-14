@@ -6,12 +6,12 @@ env/
 ENV/
 
 
-# Byte-compiled 
+# Byte-compiled
 __pycache__/
 
 
 # enviroment file
-.env   
+.env
 
 # database
 sql_app.db

@@ -1,16 +1,16 @@
-from fastapi import HTTPException, status, Depends
-from jose import jwt, JWTError
-from passlib.context import CryptContext
 from datetime import datetime, timedelta
 from typing import Optional
-# from auth.models import  blocklist_token
-from auth.constants import SECRET_KEY, ALGORITHM
-from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from fastapi import Security
-from auth.data import get_user_details, block_token, is_token_blocked
-from sqlalchemy.orm import Session
-from database.db import get_db
 
+from fastapi import Depends, HTTPException, Security, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+from passlib.context import CryptContext
+from sqlalchemy.orm import Session
+
+# from auth.models import  blocklist_token
+from auth.constants import ALGORITHM, SECRET_KEY
+from auth.data import block_token, get_user_details, is_token_blocked
+from database.db import get_db
 
 
 class AuthHandler:
@@ -23,7 +23,9 @@ class AuthHandler:
     async def get_password_hash(self, password):
         return self.pwd_context.hash(password)
 
-    async def create_access_token(self, data: dict, expires_delta: Optional[timedelta] = None):
+    async def create_access_token(
+        self, data: dict, expires_delta: Optional[timedelta] = None
+    ):
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
@@ -33,7 +35,7 @@ class AuthHandler:
         encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
         return encoded_jwt
 
-    async def get_user(self,db, username: str):
+    async def get_user(self, db, username: str):
         user = await get_user_details(db, username)
         return user
 
@@ -44,15 +46,17 @@ class AuthHandler:
         if not await self.verify_password(password, user.password):
             return False
         return user
-    
+
     async def blocklist_token(self, db, token):
         await block_token(db, token)
 
-
-    
-    async def auth_wrapper(self, auth: HTTPAuthorizationCredentials = Security(security), db : Session = Depends(get_db)):
+    async def auth_wrapper(
+        self,
+        auth: HTTPAuthorizationCredentials = Security(security),
+        db: Session = Depends(get_db),
+    ):
         token = auth.credentials
-        is_exist = await is_token_blocked(db,token)
+        is_exist = await is_token_blocked(db, token)
         if not token or is_exist:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -74,7 +78,7 @@ class AuthHandler:
                 detail="Not authenticated",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-        user = await get_user_details(db,username)
+        user = await get_user_details(db, username)
         if user is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
