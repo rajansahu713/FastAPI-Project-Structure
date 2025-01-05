@@ -29,7 +29,7 @@ async def get_blog(
         return {"error": "Due to this error {}".format(err)}
 
 
-@blog_router.post("")
+@blog_router.post("/")
 async def create_blog(
     blog: BlogCreate,
     user=Depends(auth_handle.auth_wrapper),
