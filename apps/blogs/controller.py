@@ -19,7 +19,7 @@ auth_handle = AuthHandler()
 
 @blog_router.get("/")
 async def get_blog(
-    blog_id: Optional[int],
+    blog_id: Optional[int] = 0,
     _=Depends(auth_handle.auth_wrapper),
     db: Session = Depends(get_db),
 ):
