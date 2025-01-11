@@ -58,7 +58,7 @@ FastAPI-Project-Structure/
     └── routes.py 
 ```
 
-## Lets unbdestand the project structure
+## Lets understand the project structure
 - **database**: This folder contains the database-related code, including the database session setup and the models
 - **auth**: This folder contains the authentication-related code, including the controllers, models, schemas, and services
 - **apps**: This folder contains all the code according to apps wise like for blogs suppose in future if we create analytics app then we will create a folder inside apps and put all the code related to analytics app
