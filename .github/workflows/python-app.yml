@@ -43,4 +43,4 @@ jobs:
         sleep 5
     - name: Check FastAPI server
       run: |
-        curl -f http://localhost:8000 || exit 1
+        curl -f http://localhost:8000/api/docs || exit 1
