@@ -74,25 +74,26 @@ FastAPI-Project-Structure/
 ### Installation
 
 1. Clone the repository:
-   ```sh
+```bash
    git clone https://github.com/yourusername/FastAPI-Project-Structure.git
    cd FastAPI-Project-Structure
+```
 
 ## To run pre-commit hooks
-    ```sh
+```bash
     pre-commit run --all-files
-    ```
+```
 
 ## if you want to skip pre-commit hooks
 ```bash
-git commit -m "Your commit message" --no-verify
+    git commit -m "Your commit message" --no-verify
 ```
 
 ## Generate the pytest in html format
 ```bash
-pytest --html=report.html
+    pytest --html=report.html
 ```
 ## Run the application
 ```bash
-uvicorn main:app --reload
+    uvicorn main:app --reload
 ```
