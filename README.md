@@ -17,10 +17,10 @@ This project structure is designed to provide a clean and organized layout for d
 
 ## Project Structure
 ```plaintext
-FastAPI-Project-Structure/ 
-    ├── database/ 
+FastAPI-Project-Structure/
+    ├── database/
     │       ├── __init__.py
-    │       └── db.py 
+    │       └── db.py
     ├── auth/
     │       ├── __init__.py
     │       ├── auth.py
@@ -43,9 +43,9 @@ FastAPI-Project-Structure/
     │       ├── constants.py
     │       ├── helper_function.py
     │       └── http_exceptions.py
-    ├── test/ 
-    │       ├── blog_app_test.py 
-    │       └── test_data.json 
+    ├── test/
+    │       ├── blog_app_test.py
+    │       └── test_data.json
     |── __init__.py
     ├── .env
     |── .gitignore
@@ -53,9 +53,9 @@ FastAPI-Project-Structure/
     |── docker-compose.yml
     |── Dockerfile
     |── main.py
-    ├── README.md 
+    ├── README.md
     ├── requirements.txt
-    └── routes.py 
+    └── routes.py
 ```
 
 ## Lets understand the project structure
@@ -77,3 +77,22 @@ FastAPI-Project-Structure/
    ```sh
    git clone https://github.com/yourusername/FastAPI-Project-Structure.git
    cd FastAPI-Project-Structure
+
+## To run pre-commit hooks
+    ```sh
+    pre-commit run --all-files
+    ```
+
+## if you want to skip pre-commit hooks
+```bash
+git commit -m "Your commit message" --no-verify
+```
+
+## Generate the pytest in html format
+```bash
+pytest --html=report.html
+```
+## Run the application
+```bash
+uvicorn main:app --reload
+```

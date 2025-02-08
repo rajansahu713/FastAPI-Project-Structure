@@ -4,6 +4,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from apps.blogs import models as blog_model
+from apps.events import models as event_model
 from auth import models as auth_model
 from common import constants as global_constant
 from common import helper_function as global_helper
@@ -39,3 +40,4 @@ app.include_router(main_router)
 
 auth_model.Base.metadata.create_all(bind=engine)
 blog_model.Base.metadata.create_all(bind=engine)
+event_model.Base.metadata.create_all(bind=engine)

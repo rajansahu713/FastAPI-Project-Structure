@@ -7,6 +7,7 @@ DESCRIPTIONS = "This is a project setup"
 # Tags
 BLOGS = "Blogs"
 AUTH = "Auth"
+EVENTS = "Events"
 
 # Allowed Orgin
 ALLOW_ORIGINS = ["localhost"]

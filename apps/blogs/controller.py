@@ -11,6 +11,7 @@ from apps.blogs.service import (
     update_blog_service,
 )
 from auth.auth import AuthHandler
+from common.common_response import common_response
 from database.db import get_db
 
 blog_router = APIRouter()
@@ -24,9 +25,12 @@ async def get_blog(
     db: Session = Depends(get_db),
 ):
     try:
-        return await get_blog_service(db, blog_id)
+        data = await get_blog_service(db, blog_id)
+        return common_response(message="Blog fetched successfully", data=data)
     except Exception as err:
-        return {"error": "Due to this error {}".format(err)}
+        return common_response(
+            message=f"Due to this error {err}", status=False, status_code=500
+        )
 
 
 @blog_router.post("/")
