@@ -19,5 +19,3 @@ sql_app.db
 # .vscode
 .vscode/
 
-# json file
-*.json

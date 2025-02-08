@@ -1,0 +1,9 @@
+{
+    "user_credentials": {
+        "username": "string",
+        "mobile_no": "9877856744",
+        "email_id": "user@example.com",
+        "password": "string"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdHJpbmciLCJleHAiOjE3MzY1OTcxMDJ9.dV8KJ7x-7T_Rq5UtJAUduKE6ZCrrInXT313murV8oW8"
+}
