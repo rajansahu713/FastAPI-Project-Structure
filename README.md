@@ -94,7 +94,7 @@ pre-commit run --all-files
 
 > To run pre-commit hooks
 ```bash
-    pre-commit run --all-files
+pre-commit run --all-files
 ```
 
 > Sometime you will get false positive error in pre-commit hooks so to skip the pre-commit hooks use the below command
