@@ -77,7 +77,6 @@ git clone https://github.com/yourusername/FastAPI-Project-Structure.git
 cd FastAPI-Project-Structure
 ```
 
-<<<<<<< HEAD
 ### Installation
 ```
 pip install -r requirements.txt
@@ -86,29 +85,28 @@ pip install -r requirements.txt
 > To check the pre-commit hooks
 ```sh
 pre-commit run --all-files
-=======
-1. Clone the repository:
+```
+> Clone the repository:
 ```bash
    git clone https://github.com/yourusername/FastAPI-Project-Structure.git
    cd FastAPI-Project-Structure
 ```
 
-## To run pre-commit hooks
+> To run pre-commit hooks
 ```bash
     pre-commit run --all-files
->>>>>>> 97b18096bcf960062ecb46f0fc28aa62d230d15a
 ```
 
 > Sometime you will get false positive error in pre-commit hooks so to skip the pre-commit hooks use the below command
 ```bash
-    git commit -m "Your commit message" --no-verify
+git commit -m "Your commit message" --no-verify
 ```
 
 > Generate the Yesting report with pytest in html format
 ```bash
-    pytest --html=report.html
+pytest --html=report.html
 ```
 ### Run the application
 ```bash
-    uvicorn main:app --reload
+uvicorn main:app --reload
 ```
