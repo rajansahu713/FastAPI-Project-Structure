@@ -71,28 +71,32 @@ FastAPI-Project-Structure/
 - Python 3.8+
 - Virtual environment (optional but recommended)
 
+### To Clone the repository:
+```sh
+git clone https://github.com/yourusername/FastAPI-Project-Structure.git
+cd FastAPI-Project-Structure
+```
+
 ### Installation
+```
+pip install -r requirements.txt
+```
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/FastAPI-Project-Structure.git
-   cd FastAPI-Project-Structure
+> To check the pre-commit hooks
+```sh
+pre-commit run --all-files
+```
 
-## To run pre-commit hooks
-    ```sh
-    pre-commit run --all-files
-    ```
-
-## if you want to skip pre-commit hooks
+> Sometime you will get false positive error in pre-commit hooks so to skip the pre-commit hooks use the below command
 ```bash
 git commit -m "Your commit message" --no-verify
 ```
 
-## Generate the pytest in html format
+> Generate the Yesting report with pytest in html format
 ```bash
 pytest --html=report.html
 ```
-## Run the application
+### Run the application
 ```bash
 uvicorn main:app --reload
 ```
